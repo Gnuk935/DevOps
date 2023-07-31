@@ -40,3 +40,44 @@ Verifique se a instalação do Docker Engine foi bem-sucedida executando a hello
 ```
  sudo docker run hello-world
 ```
+### Docker container run:
+docker container run [parametos] [imagem]
+Parametros:
+* --rm -> ao terminar ele é excluido
+* -d -> roda em segundo plano
+* --name -> pode dar uma nome ao container
+* -t -> terminal
+* -i -> interativo
+* -p -> associa uma porta do host ao container
+* -P -> associa tds as portas do container em portas aleatorias do host
+* -e -> serve para declarar variaveis
+* --reado-only -> apenas leitura
+* --hostname -> define um hostname para maquina
+* health-cmd -> define um comando para o checar o container
+* --health-interval -> define um  intervalo
+* --health-retries -> numeros de tentiva
+### Docker container:
+* create -> apenas cria o container (pode usar o mesmos param do run)
+* start -> inicia o container
+* stop -> para o container 
+* kill -> mata o container
+* rm -> remover um container
+* restart -> reinicia o container
+* rename -> serve para renomear o container
+* wait -> prende a linha de conmando mostrando apenas o exit code
+* inspect -> mostra tds as infos do container 
+* port -> mostra as portas do container
+* diff -> mostra a diferença entre dois containers
+* logs -> mostra os logs
+* exec -it [nome] [shell]-> entra no container com shell
+* exec [nome] [comando] -> roda um comando no container
+* qcp -> [daqui] [pra k] copia arquivos do container para o host
+* commit -> salve o estado do container como uma imagem
+* commit -p -> no momento que a imagem for criada o contaier é pausado ate terminar o comando
+* export [nome] -o [nome_da_exportação] -> exporta a imagem
+* --cpus [num] -> serve para limitar os cpus
+* -m -> limita o total de memoria
+* stat -> status do container em tempo real
+    * top -> escohe o container que quero ver
+### Docker Image:
+* import [imagem] [importada] -> importa uma imagem
