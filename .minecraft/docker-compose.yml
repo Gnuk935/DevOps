@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    container_name: minetest
+    volumes:
+      - mineteste:/data
+      - /home/.minecraft/modpacks:/modpacks:ro
+      - /home/.minecraft/downloads:/downloads:ro
+    ports:
+      - 9350:25565
+    environment:
+      EULA: "true"
+      VERSION: 1.19.2
+      TYPE: FORGE
+#       CF_API_KEY: ${CF_API_KEY}
+#       CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/better-mc-forge-bmc3/files/3975945
+#       CF_DOWNLOADS_REPO: /downloads
+      MODPAKC: /modpacks/better.zip
+      CF_DOWNLOADS_REPO: /downloads       
+#       REMOVE_OLD_MODS: "true"      
+      OPS: "Gnuk"
+      MOTD: "Sem choro papai"
+      DIFFICULTY: "hard"
+      ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
+      LEVEL_TYPE: "amplified"      
+      SERVER_NAME: "mine dos brodi"
+      ENABLE_WHITELIST: "FALSE"
+      ENFORCE_WHITELIST: "FALSE"
+      MEMORY: 15G
+      DEBUG: "true"
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+volumes:
+  mineteste: {}
