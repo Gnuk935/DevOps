@@ -40,7 +40,6 @@ Verifique se a instalação do Docker Engine foi bem-sucedida executando a hello
 ```
  sudo docker run hello-world
 ```
-<<<<<<< Updated upstream
 ### Docker container run:
 docker container run [parametos] [imagem]
 Parametros:
@@ -79,10 +78,20 @@ Parametros:
 * --cpus [num] -> serve para limitar os cpus
 * -m -> limita o total de memoria
 * stat -> status do container em tempo real
-    * top -> escohe o container que quero ver
+* top -> escohe o container que quero ver
+* update -> atualiza valores no container
+* --pull string -> definie como o container lida com a imagem
+* --restart -> define oq acontence ao dar exit no container
+* --privileged -> define os priviligeos que o container inicia
 ### Docker Image:
 * import [imagem] [importada] -> importa uma imagem
-=======
+### Dokcer system: 
+* df -> mostra infos em disco nos containers
+    * -v -> mais detalhes
+* events -> em tempo real oq acontece dentro do docker
+### Docker file
+<p> Conceito de camadas de Imagens e containers </p>
+
 ### Comandos do docker image: 
 Construir uma imagem:
 ````
@@ -241,4 +250,3 @@ Parametro --entrypoint -> serve para alterar o entrypoint da imagem.
 -d -> roda e deixa o terminal livre 
 --rm -> apaga após o container ser encerrado
 -it -> acessa o terminal de forma interativa
->>>>>>> Stashed changes
