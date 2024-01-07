@@ -1,0 +1,33 @@
+version: '3'
+services:
+  minecraft-server:
+    image: minecraftsv:1.0
+    container_name: mineteste
+    ports:
+      - "9350:25565"
+      - "25575:25575"
+    volumes:
+      - minetest:/data
+      - /home/barros/.container/.minecraft/mods:/data/mods
+      - /home/barros/.container/.minecraft/script:/data/script
+    environment:
+      SERVER: "server"
+      ONLINE_MODE: false
+      BROADCAST_RCON_TO_OPS: true
+      ENABLE-RCON: true
+      DIFFICULTY: hard
+      MOTD: "Sem choro crianca"
+      ALLOW_FLIGHT: true
+      RCON_PASSWORD: 1234569789  
+      RCON_PORT: 25575
+      DIRSCRIPTS: /data/script
+      URLSERVER: https://mediafilez.forgecdn.net/files/4766/582/BMC3_FORGE_1.19.2_Server_Pack_v18.zip
+      START: "start.sh"
+      SERVERNAME: mineteste
+      DIRMODS: ./mods/
+      DIRSERVER: /data/server/mineteste
+      SERVERMODS: /data/server/mineteste/mods/
+    entrypoint: ["bash", "./script/inicia.sh"]
+    restart: unless-stopped
+volumes:
+  minetest: {}
