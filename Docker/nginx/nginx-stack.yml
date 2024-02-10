@@ -1,0 +1,22 @@
+version: '3.3'
+
+networks:
+  nginx:
+    driver: overlay
+    attachable: true
+
+services:
+  nginx:
+    image: nginx:1.25.3-alpine-slim
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./config:/etc/nginx
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - nginx
