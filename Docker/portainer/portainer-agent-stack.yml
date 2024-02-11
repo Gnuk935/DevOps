@@ -24,6 +24,7 @@ services:
       - portainer_data:/data
     networks:
       - agent_network
+#      - nginx
     deploy:
       mode: replicated
       replicas: 1
@@ -34,6 +35,10 @@ networks:
   agent_network:
     driver: overlay
     attachable: true
+
+#  nginx:
+#    external:
+#      name: nginx
 
 volumes:
   portainer_data:

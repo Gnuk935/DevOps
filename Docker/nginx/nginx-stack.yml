@@ -4,6 +4,7 @@ networks:
   nginx:
     driver: overlay
     attachable: true
+    external: true
 
 services:
   nginx:
