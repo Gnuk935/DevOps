@@ -28,13 +28,13 @@ services:
         networks:
             - xoce-net
             - redis-net 
-#            - nginx
+            - nginx
 
         deploy:
             mode: replicated
             replicas: 1
             placement:
-                constraints: [node.role == manager]
+                constraints: [node.hostname == zeus]
 
     redis:
         image: redis:alpine
@@ -49,7 +49,7 @@ services:
             mode: replicated
             replicas: 1
             placement:
-                constraints: [node.role == manager]
+                constraints: [node.hostname == zeus]
 
 networks:
     xoce-net:
@@ -58,6 +58,6 @@ networks:
     redis-net:
         driver: overlay
 
-#    nginx:
-#        external:
-#            name: nginx
+    nginx:
+        external:
+            name: nginx

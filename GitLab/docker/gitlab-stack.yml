@@ -1,35 +1,41 @@
 version: "3.6"
 services:
   gitlab:
-    image: gitlab/gitlab-ee:<version>-ee.0
-    restart: always
-    hostname: 'gitlab.example.com'
-    ports:
-      - "80:80"
-      - "443:443"
+    image: gitlab/gitlab-ce:16.7.5-ce.0
     volumes:
       - ./gitlab-data/data:/var/opt/gitlab
       - ./gitlab-data/logs:/var/log/gitlab
       - ./gitlab-data/config:/etc/gitlab
     shm_size: '256m'
     environment:
-      GITLAB_OMNIBUS_CONFIG: "from_file('./omnibus_config.rb')"
+      GITLAB_OMNIBUS_CONFIG: "from_file('/etc/gitlab/gitlab.rb')"
     networks:
       - gitlab
-    configs:
-      - source: gitlab
-        target: ./omnibus_config.rb
-    secrets:
-      - gitlab_root_password
+      - nginx
+    
+    healthcheck:
+      interval: 6m30s
+    
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == gaia
+
+      update_config:
+        parallelism: 1
+        delay: 10s
+
+      restart_policy:
+        condition: any
 
 configs:
   gitlab:
     file: ./gitlab.rb
 
-secrets:
-  gitlab_root_password:
-    file: ./root_password.txt
-
 networks:
-    gitlab:
-        driver: overlay
+  gitlab:
+    driver: overlay
+
+  nginx:
+    external:
+      name: nginx
