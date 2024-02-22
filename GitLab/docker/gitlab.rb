@@ -1,5 +1,5 @@
-external_url 'http://git.testando.um/'
-gitlab_rails['allowed_hosts'] = ['git.testando.um', '127.0.0.1', 'localhost']
+external_url 'https://git.tidointerior.com/'
+gitlab_rails['allowed_hosts'] = ['git.tidointerior.com', '127.0.0.1', 'localhost']
 
 gitlab_rails['initial_root_password'] = "Senh@D@sB0as"
 
@@ -19,5 +19,5 @@ gitlab_rails['content_security_policy'] = {
 nginx['listen_port'] = 80
 nginx['listen_https'] = false
 puma['enable'] = false
-gitlab_rails['internal_api_url'] = 'http://git.testando.um/'
+gitlab_rails['internal_api_url'] = 'https://git.tidointerior.com/'
 web_server['external_users'] = ['www-data']
