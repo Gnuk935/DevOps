@@ -3,29 +3,36 @@
  * @param {Object} objDadosParaColetar {idPlanilha,nomePagina,linhaArray,colunaArray,quantLinhasArray,quantColunaArray}
  * @returns array de dados
  */
-function coletaDadosObjeto (objDadosParaColetar) {
-  function coletar(objDadosParaColetar) {
-      const returnArray = coletaDados(objDadosParaColetar.idPlanilha,objDadosParaColetar.nomePagina,objDadosParaColetar.linhaArray,objDadosParaColetar.colunaArray,objDadosParaColetar.quantLinhasArray,objDadosParaColetar.quantColunaArray)
+function coletaDadosObjeto(objDadosParaColetar) {
+  try {
+    function coletar(objDadosParaColetar) {
+      const returnArray = coletaDados(
+        objDadosParaColetar.idPlanilha,
+        objDadosParaColetar.nomePagina,
+        objDadosParaColetar.linhaArray,
+        objDadosParaColetar.colunaArray,
+        objDadosParaColetar.quantLinhasArray,
+        objDadosParaColetar.quantColunaArray
+      );
 
-      return returnArray
-  }
+      return returnArray;
+    }
 
-  function normalizaArrayReturn (returnArray) {
-      returnArray[0] // Finalizar dps
-  }
+    function normalizaArrayReturn(returnArray) {
+      returnArray[0]; // Finalizar dps
+    }
 
-
-  /**
-   * depreciada - att em adamento
-   * @param {int} idPlanilha ID do planilha
-   * @param {string} nomePagina nome da pagina
-   * @param {array} linhaArray linhas que você deseja coletar, valor padrão: [1]
-   * @param {array} colunaArray colunas que você deseja coletar, valor padrão: [1]
-   * @param {array} quantidadeLinhasArray Informe a quantidade de linhas
-   * @param {array} quantidadeColunaArray Informe a quantidade de colunas
-   * @returns {array} Um array a partir dos valores informados
-  */
-  function coletaDados(
+    /**
+     * depreciada - att em adamento
+     * @param {int} idPlanilha ID do planilha
+     * @param {string} nomePagina nome da pagina
+     * @param {array} linhaArray linhas que você deseja coletar, valor padrão: [1]
+     * @param {array} colunaArray colunas que você deseja coletar, valor padrão: [1]
+     * @param {array} quantidadeLinhasArray Informe a quantidade de linhas
+     * @param {array} quantidadeColunaArray Informe a quantidade de colunas
+     * @returns {array} Um array a partir dos valores informados
+     */
+    function coletaDados(
       idPlanilha,
       nomePagina,
       linhaArray,
@@ -33,7 +40,12 @@ function coletaDadosObjeto (objDadosParaColetar) {
       quantLinhasArray,
       quantColunaArray
     ) {
-      const pagina = SpreadsheetApp.openById(idPlanilha).getSheetByName(nomePagina);
+      const pagina = SpreadsheetApp.openById(idPlanilha).getSheetByName(
+        nomePagina
+      );
+      if (!pagina) {
+        throw new Error("Não foi possível abrir a planilha ou encontrar a página especificada.");
+      }
       const tamanho = Math.max(linhaArray.length, colunaArray.length);
       const normalizados = normalizaArraysParaColeta(
         linhaArray,
@@ -46,7 +58,7 @@ function coletaDadosObjeto (objDadosParaColetar) {
       const coluna = normalizados[1];
       const quantLinhas = normalizados[2];
       const quantColuna = normalizados[3];
-      
+
       const listValues = [];
       for (let i = 0; i < tamanho; i++) {
         listValues.push(
@@ -93,11 +105,11 @@ function coletaDadosObjeto (objDadosParaColetar) {
 
     function normalizaColetados(listValues) {
       const novoArray = [];
-    
+
       for (let i = 0; i < listValues.length; i++) {
         const subArray = listValues[i];
         const novoArrayItem = [];
-      
+
         for (let j = 0; j < subArray.length; j++) {
           if (
             typeof subArray[j] !== "undefined" &&
@@ -107,14 +119,18 @@ function coletaDadosObjeto (objDadosParaColetar) {
             novoArrayItem.push(subArray[j]);
           }
         }
-      
+
         if (novoArrayItem.length > 0) {
           novoArray.push(novoArrayItem);
         }
       }
-    
+
       return novoArray;
     }
 
-    return coletar(objDadosParaColetar)
+    return coletar(objDadosParaColetar);
+  } catch (error) {
+    Logger.log("Ocorreu um erro durante a coleta de dados:", error.message); // Validar se AppScript aceita
+    return false;
+  }
 }
